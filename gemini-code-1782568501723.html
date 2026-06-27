@@ -1,0 +1,1068 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Bài Kiểm Tra Tiếng Anh - Ms Lê Hằng</title>
+    <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@500;700;800;900&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --primary: #8854C0;
+            --secondary: #FDCB6E;
+            --accent: #00C9A7;
+            --correct: #00D26A;
+            --wrong: #FF4757;
+            --text-main: #2D3436;
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+            font-family: 'Nunito', sans-serif;
+        }
+
+        body {
+            background: linear-gradient(-45deg, #8854C0, #FDCB6E, #00C9A7, #FF9FF3, #48dbfb);
+            background-size: 400% 400%;
+            animation: gradientMove 15s ease infinite;
+            color: var(--text-main);
+            padding: 15px 10px;
+            overflow-x: hidden;
+            position: relative;
+        }
+
+        /* Họa tiết SVG động nổi lơ lửng */
+        body::before {
+            content: "";
+            position: fixed;
+            top: 0; left: 0; width: 100%; height: 100%;
+            pointer-events: none;
+            z-index: 0;
+            opacity: 0.3;
+            background-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 200 200'><text x='10' y='30' font-size='20'>⭐</text><text x='150' y='60' font-size='25'>🌸</text><text x='50' y='120' font-size='22'>🍎</text><text x='130' y='160' font-size='24'>🐱</text><text x='80' y='190' font-size='18'>☁️</text></svg>");
+            background-size: 250px 250px;
+            animation: floatPattern 30s linear infinite;
+        }
+
+        @keyframes gradientMove {
+            0% { background-position: 0% 50%; }
+            50% { background-position: 100% 50%; }
+            100% { background-position: 0% 50%; }
+        }
+
+        @keyframes floatPattern {
+            from { background-position: 0 0; }
+            to { background-position: 500px 500px; }
+        }
+
+        .container {
+            max-width: 850px;
+            margin: 0 auto;
+            position: relative;
+            z-index: 1;
+        }
+
+        h4.author-heading {
+            text-align: center;
+            color: #fff;
+            font-size: 1.1rem;
+            font-weight: 800;
+            background: rgba(0,0,0,0.2);
+            padding: 8px 15px;
+            border-radius: 20px;
+            display: inline-block;
+            margin: 0 auto 15px;
+            box-shadow: 0 3px 0 rgba(0,0,0,0.1);
+        }
+
+        .text-center { text-align: center; }
+
+        .alert-box {
+            background: #FFEAA7;
+            border: 4px solid #FDCB6E;
+            border-radius: 20px;
+            padding: 20px;
+            margin-bottom: 30px;
+            box-shadow: 0 6px 0 #E17055;
+            text-align: center;
+            font-weight: 800;
+            font-size: 1.05rem;
+            color: #d63031;
+            line-height: 1.6;
+            animation: bounceIn 1s;
+        }
+
+        .alert-title {
+            font-size: 1.3rem;
+            margin-bottom: 8px;
+            display: block;
+            font-weight: 900;
+            animation: pulse 1.5s infinite;
+        }
+
+        .section-title {
+            background: #4834D4;
+            color: #fff;
+            padding: 10px 20px;
+            border-radius: 15px;
+            margin: 30px 0 15px;
+            display: inline-block;
+            font-weight: 900;
+            box-shadow: 0 4px 0 #30336b;
+        }
+
+        .quiz-card {
+            background: rgba(255, 255, 255, 0.96);
+            border-radius: 25px;
+            padding: 25px;
+            margin-bottom: 25px;
+            box-shadow: 0 8px 0 rgba(0,0,0,0.08);
+            transition: transform 0.2s;
+        }
+
+        .question-text {
+            font-size: 1.15rem;
+            font-weight: 800;
+            margin-bottom: 20px;
+            background: #f1f2f6;
+            padding: 15px;
+            border-radius: 15px;
+            border-left: 6px solid var(--accent);
+        }
+
+        .options-grid {
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+        }
+
+        .option-btn {
+            background: #fff;
+            border: 3px solid #dfe6e9;
+            border-radius: 18px;
+            padding: 15px 20px;
+            font-size: 1.05rem;
+            font-weight: 800;
+            text-align: left;
+            cursor: pointer;
+            box-shadow: 0 6px 0 #dfe6e9;
+            transition: all 0.15s;
+            color: #2d3436;
+            outline: none;
+        }
+
+        .option-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 0 #b2bec3;
+            background: #f8f9fa;
+        }
+
+        .option-btn:active {
+            transform: translateY(4px);
+            box-shadow: 0 2px 0 #b2bec3;
+        }
+
+        .option-btn.correct {
+            background: var(--correct) !important;
+            color: #fff !important;
+            border-color: #00b894 !important;
+            box-shadow: 0 6px 0 #009432 !important;
+        }
+
+        .option-btn.wrong {
+            background: var(--wrong) !important;
+            color: #fff !important;
+            border-color: #d63031 !important;
+            box-shadow: 0 6px 0 #c0392b !important;
+        }
+
+        .option-btn.disabled { pointer-events: none; }
+
+        .explanation-box {
+            margin-top: 20px;
+            background: #fff;
+            border: 3px solid var(--primary);
+            border-radius: 20px;
+            padding: 20px;
+            display: none;
+            animation: slideDown 0.4s ease;
+            box-shadow: inset 0 3px 6px rgba(0,0,0,0.05);
+        }
+
+        .explanation-box.active { display: block; }
+
+        .exp-step {
+            margin-bottom: 15px;
+            font-size: 1rem;
+            line-height: 1.6;
+            background: #f8f9fa;
+            padding: 12px;
+            border-radius: 12px;
+            border-left: 4px solid var(--primary);
+        }
+
+        .exp-step:nth-child(2) { border-color: var(--secondary); }
+        .exp-step:nth-child(3) { border-color: var(--correct); background: #e8f8f5; }
+        .exp-step:nth-child(4) { border-color: var(--wrong); background: #fdedec; }
+
+        .exp-step b { color: #1e272e; display: block; margin-bottom: 5px; font-size: 1.1rem; }
+
+        .btn-submit {
+            background: var(--accent);
+            color: #fff;
+            border: none;
+            padding: 18px 60px;
+            font-size: 1.4rem;
+            font-weight: 900;
+            border-radius: 50px;
+            cursor: pointer;
+            box-shadow: 0 8px 0 #00a88f;
+            text-transform: uppercase;
+            margin: 40px auto;
+            display: block;
+        }
+
+        .btn-submit:active {
+            transform: translateY(4px);
+            box-shadow: 0 4px 0 #00a88f;
+        }
+
+        .result-overlay {
+            position: fixed; top: 0; left: 0; width: 100%; height: 100%;
+            background: rgba(0,0,0,0.8); z-index: 2000;
+            display: flex; justify-content: center; align-items: center;
+            display: none; backdrop-filter: blur(5px);
+        }
+
+        .result-content {
+            background: #fff; border-radius: 30px; padding: 40px;
+            max-width: 500px; width: 90%; text-align: center;
+            border: 6px solid var(--secondary); box-shadow: 0 20px 40px rgba(0,0,0,0.3);
+            animation: bounceIn 0.5s;
+        }
+
+        .result-score {
+            font-size: 4rem; font-weight: 900; color: var(--primary);
+            margin-bottom: 15px; text-shadow: 3px 3px 0px var(--secondary);
+        }
+
+        .result-comment { font-size: 1.25rem; font-weight: 800; color: #2d3436; margin-bottom: 25px; line-height: 1.5; white-space: pre-wrap; }
+        .btn-close {
+            background: var(--primary); color: #fff; border: none; padding: 15px 40px;
+            font-size: 1.2rem; font-weight: 900; border-radius: 20px; cursor: pointer; box-shadow: 0 6px 0 #6c5ce7;
+        }
+
+        @keyframes shake {
+            0%, 100% { transform: translateX(0); }
+            20%, 60% { transform: translateX(-8px); }
+            40%, 80% { transform: translateX(8px); }
+        }
+        .shake { animation: shake 0.4s ease; }
+        @keyframes slideDown { from { opacity: 0; transform: translateY(-10px); } to { opacity: 1; transform: translateY(0); } }
+        @keyframes pulse { 0% { transform: scale(1); } 50% { transform: scale(1.05); } 100% { transform: scale(1); } }
+        @keyframes bounceIn { 0% { transform: scale(0.8); opacity: 0; } 60% { transform: scale(1.05); opacity: 1; } 100% { transform: scale(1); } }
+
+        #confetti-canvas { position: fixed; top: 0; left: 0; width: 100%; height: 100%; pointer-events: none; z-index: 9999; }
+    </style>
+</head>
+<body>
+    <canvas id="confetti-canvas"></canvas>
+
+    <div class="container">
+        <div class="text-center">
+            <h4 class="author-heading">Giáo viên tạo: Ms Lê Hằng English</h4>
+        </div>
+
+        <div class="alert-box">
+            <span class="alert-title">⚠️ LỜI NHẮC CỰC KỲ QUAN TRỌNG ⚠️</span>
+            Chỉ có đọc kỹ giải thích ngay sau mỗi câu, sau đó ghi lại từ vựng/cấu trúc mới vào vở để học thì mới thực sự giỏi lên.<br>
+            Làm cho xong mà không đọc giải thích hay đọc qua loa không ghi chép thì chỉ tốn thời gian vô ích!<br>
+            <span style="color: #00b894; font-size: 1.2rem; display: block; margin-top: 10px;">* Kéo tới đâu, làm tới đó! *</span>
+        </div>
+
+        <div id="quiz-container"></div>
+
+        <button class="btn-submit" onclick="gradeQuiz()">Nộp Bài</button>
+    </div>
+
+    <div class="result-overlay" id="result-modal">
+        <div class="result-content">
+            <div class="result-score" id="score-text">0/0</div>
+            <div class="result-comment" id="comment-text"></div>
+            <button class="btn-close" onclick="closeModal()">Xem Lại Bài Học</button>
+        </div>
+    </div>
+
+    <script>
+        // WEB AUDIO API - Tự động tạo âm thanh không cần file ngoài
+        const audioCtx = new (window.AudioContext || window.webkitAudioContext)();
+        function playSound(type) {
+            if (audioCtx.state === 'suspended') audioCtx.resume();
+            const osc = audioCtx.createOscillator();
+            const gain = audioCtx.createGain();
+            osc.connect(gain); gain.connect(audioCtx.destination);
+
+            if (type === 'correct') {
+                osc.type = 'sine';
+                osc.frequency.setValueAtTime(659.25, audioCtx.currentTime); // E5
+                osc.frequency.setValueAtTime(880.00, audioCtx.currentTime + 0.1); // A5
+                gain.gain.setValueAtTime(0.2, audioCtx.currentTime);
+                gain.gain.exponentialRampToValueAtTime(0.01, audioCtx.currentTime + 0.4);
+                osc.start(); osc.stop(audioCtx.currentTime + 0.4);
+            } else {
+                osc.type = 'sawtooth';
+                osc.frequency.setValueAtTime(300, audioCtx.currentTime);
+                osc.frequency.linearRampToValueAtTime(150, audioCtx.currentTime + 0.3);
+                gain.gain.setValueAtTime(0.2, audioCtx.currentTime);
+                gain.gain.exponentialRampToValueAtTime(0.01, audioCtx.currentTime + 0.4);
+                osc.start(); osc.stop(audioCtx.currentTime + 0.4);
+            }
+        }
+
+        // DATABASE ĐỀ BÀI (Chứa 43 câu hỏi + Giải thích 4 bước 100% tuân thủ yêu cầu)
+        const quizData = [
+            // EXERCISE 1: MAKE SENTENCES
+            {
+                section: "Exercise 1: Make complete sentences from the clues.",
+                q: "1. Japan / people / ring / temple bells /108 times / welcome / New Year /.",
+                opts: [
+                    { t: "A. In Japan, people ring their temple bells 108 times to welcome the New Year.", c: true },
+                    { t: "B. At Japan, people rings temple bells 108 times for welcome New Year.", c: false },
+                    { t: "C. In Japan, people ring their temple bells 108 times welcome the New Year.", c: false },
+                    { t: "D. Japan people ring temple bells 108 times to welcoming New Year.", c: false }
+                ],
+                exp1: "Ở Nhật Bản, mọi người đánh chuông chùa 108 lần để chào đón Năm Mới.",
+                exp2: "A. Tại Nhật Bản, mọi người đánh chuông chùa 108 lần để chào đón năm mới. B. (Sai ngữ pháp). C. (Sai ngữ pháp). D. (Sai ngữ pháp).",
+                exp3: "A đúng vì: Dùng giới từ 'In' trước quốc gia. Dùng động từ nguyên thể có 'to' (to welcome) để chỉ mục đích.",
+                exp4: "B sai giới từ 'At' và dùng 'for welcome'. C thiếu chữ 'to' trước 'welcome'. D thiếu giới từ 'In' và dùng sai 'to welcoming'."
+            },
+            {
+                q: "2. some / old Vietnamese people / still / use / some French / conversations /.",
+                opts: [
+                    { t: "A. Some old Vietnamese people still using some French in conversations.", c: false },
+                    { t: "B. Some old Vietnamese people still use some French in their conversations.", c: true },
+                    { t: "C. Some old Vietnamese people still uses some French on conversations.", c: false },
+                    { t: "D. Some of old Vietnamese people still use some French for their conversations.", c: false }
+                ],
+                exp1: "Một số người Việt Nam lớn tuổi vẫn sử dụng một chút tiếng Pháp trong các cuộc trò chuyện của họ.",
+                exp2: "A. (Sai ngữ pháp). B. Một số người Việt lớn tuổi vẫn dùng tiếng Pháp trong hội thoại (Đúng). C. (Sai ngữ pháp). D. (Sai giới từ).",
+                exp3: "B đúng: Chủ ngữ số nhiều 'people' nên động từ 'use' giữ nguyên. Giới từ 'in' dùng cho 'conversations' (trong các cuộc hội thoại).",
+                exp4: "A sai vì động từ chính dùng V-ing 'using' khi không có tobe. C sai vì chia 'uses' cho chủ ngữ số nhiều. D thừa 'of' và sai giới từ 'for'."
+            },
+            {
+                q: "3. area / use / be covered / bushes / tall trees /.",
+                opts: [
+                    { t: "A. This area used to be covered with bushes and tall trees.", c: true },
+                    { t: "B. This area use to be covered by bushes and tall trees.", c: false },
+                    { t: "C. This area is used to be covered with bushes and tall trees.", c: false },
+                    { t: "D. This area used to covering with bushes and tall trees.", c: false }
+                ],
+                exp1: "Khu vực này từng được bao phủ bởi các bụi rậm và cây cao.",
+                exp2: "A. Khu vực này từng được bao phủ... (Đúng). B. (Sai cấu trúc). C. (Sai cấu trúc). D. (Sai cấu trúc).",
+                exp3: "A đúng: Cấu trúc 'used to + V' (đã từng làm gì trong quá khứ). Bị động: 'be covered with' (được bao phủ bởi).",
+                exp4: "B thiếu 'd' ở 'used'. C thừa tobe 'is' làm sai cấu trúc used to. D sai thể bị động (dùng covering thay vì be covered)."
+            },
+            {
+                q: "4. over/ past / 50 years / English / become / global means / communication /.",
+                opts: [
+                    { t: "A. Over past 50 years, English becomes a global means of communication.", c: false },
+                    { t: "B. Over the past 50 years, English became global mean of communication.", c: false },
+                    { t: "C. Over the past 50 years, English has become a global means of communication.", c: true },
+                    { t: "D. Over the past 50 years, English have become a global means for communication.", c: false }
+                ],
+                exp1: "Trong hơn 50 năm qua, tiếng Anh đã trở thành một phương tiện giao tiếp toàn cầu.",
+                exp2: "A. (Sai thì). B. (Sai thì). C. Trong 50 năm qua, tiếng Anh đã trở thành... (Đúng). D. (Sai trợ động từ).",
+                exp3: "C đúng: Dấu hiệu 'Over the past + khoảng thời gian' đòi hỏi thì Hiện tại hoàn thành (has become). Cụm 'a global means of communication' là chính xác.",
+                exp4: "A sai thì Hiện tại đơn. B sai thì Quá khứ đơn và thiếu 's' ở từ means. D dùng 'have' sai vì English là số ít."
+            },
+            {
+                q: "5. even now / people / many areas / world / still / use / animals / travelling /.",
+                opts: [
+                    { t: "A. Even now, people in many areas of the world still use animals for travelling.", c: true },
+                    { t: "B. Even now, people on many areas of world still uses animals for travelling.", c: false },
+                    { t: "C. Even now, people in many areas of the world still use animals to travelling.", c: false },
+                    { t: "D. Even now, people at many areas of the world still using animals for travelling.", c: false }
+                ],
+                exp1: "Ngay cả bây giờ, người dân ở nhiều khu vực trên thế giới vẫn sử dụng động vật để di chuyển.",
+                exp2: "A. Ngay cả bây giờ, người dân... (Đúng). B, C, D đều chứa lỗi sai giới từ hoặc dạng động từ.",
+                exp3: "A đúng: Giới từ 'in' cho khu vực (areas). Chỉ mục đích dùng 'for + V-ing' (for travelling).",
+                exp4: "B sai giới từ 'on' và chia 'uses'. C sai vì dùng 'to + V-ing'. D sai vì dùng 'using' không có tobe."
+            },
+            {
+                q: "6. Nam/ learn/ speak French/ by/ watch/ videos/ practise/ speak/ every day.",
+                opts: [
+                    { t: "A. Nam learns to speak French by watching videos and practise speaking every day.", c: false },
+                    { t: "B. Nam learns speaking French by watching videos and practising speak every day.", c: false },
+                    { t: "C. Nam learns to speak French by watching videos and practising speaking every day.", c: true },
+                    { t: "D. Nam learns speaking French by watch videos and practising speaking every day.", c: false }
+                ],
+                exp1: "Nam học nói tiếng Pháp bằng cách xem video và thực hành nói mỗi ngày.",
+                exp2: "C. Nam học nói tiếng Pháp bằng cách xem... (Đúng). A, B, D sai dạng V-ing/To-V.",
+                exp3: "C đúng: learn + to V (learns to speak), sau giới từ 'by' là V-ing (by watching and practising), practise + V-ing (practising speaking).",
+                exp4: "A sai 'practise' (phải là practising để song song với watching). B sai 'speaking French' và 'practising speak'. D sai 'by watch'."
+            },
+            {
+                q: "7. Anna/ not/ mind/ cook/ dinner/ tonight.",
+                opts: [
+                    { t: "A. Anna doesn't mind to cook dinner tonight.", c: false },
+                    { t: "B. Anna isn't mind cooking dinner tonight.", c: false },
+                    { t: "C. Anna don't mind cooking dinner tonight.", c: false },
+                    { t: "D. Anna doesn't mind cooking dinner tonight.", c: true }
+                ],
+                exp1: "Anna không ngại nấu bữa tối nay.",
+                exp2: "D. Anna không ngại nấu bữa tối nay (Đúng). A, B, C sai cấu trúc hoặc trợ động từ.",
+                exp3: "D đúng: Chủ ngữ 'Anna' (số ít) dùng trợ động từ 'doesn't'. Cấu trúc 'mind + V-ing' (ngại làm gì).",
+                exp4: "A sai vì dùng 'to cook'. B sai vì dùng tobe 'isn't' với động từ thường 'mind'. C sai trợ động từ 'don't'."
+            },
+            {
+                q: "8. We/ plan/ have/ picnic/ in/ park/ if/ weather/ nice.",
+                opts: [
+                    { t: "A. We plan having a picnic in the park if the weather is nice.", c: false },
+                    { t: "B. We plan to have a picnic in the park if the weather is nice.", c: true },
+                    { t: "C. We plan to have picnic in park if weather is nice.", c: false },
+                    { t: "D. We plan to have a picnic in the park if weather nice.", c: false }
+                ],
+                exp1: "Chúng tôi lên kế hoạch đi dã ngoại trong công viên nếu thời tiết đẹp.",
+                exp2: "B. Chúng tôi dự định đi dã ngoại... (Đúng). A, C, D sai ngữ pháp hoặc thiếu mạo từ.",
+                exp3: "B đúng: Cấu trúc 'plan + to V' (dự định làm gì). Phải có mạo từ: 'a picnic', 'the park', 'the weather'. Câu điều kiện loại 1 'if the weather is nice'.",
+                exp4: "A sai vì dùng 'having'. C thiếu mạo từ 'a' và 'the'. D thiếu động từ tobe 'is' ở vế if."
+            },
+            {
+                q: "9. I/ promise/ be/ careful/ while/ ride/ bike/ in/ park.",
+                opts: [
+                    { t: "A. I promise being careful while riding my bike in the park.", c: false },
+                    { t: "B. I promise to be careful while riding my bike in the park.", c: true },
+                    { t: "C. I promise to be careful while ride my bike in the park.", c: false },
+                    { t: "D. I promise be careful while riding my bike in park.", c: false }
+                ],
+                exp1: "Tôi hứa sẽ cẩn thận trong khi đạp xe trong công viên.",
+                exp2: "B. Tôi hứa sẽ cẩn thận... (Đúng). A, C, D sai cấu trúc.",
+                exp3: "B đúng: Cấu trúc 'promise + to V' (hứa làm gì). Sau liên từ 'while' (trong khi) nếu rút gọn chủ ngữ thì dùng V-ing -> 'while riding'.",
+                exp4: "A sai vì dùng 'being' sau promise. C sai vì dùng 'ride' sau while. D thiếu 'to' sau promise và thiếu 'the' trước park."
+            },
+            {
+                q: "10. you/ mind/ help/ me/ carry/ these groceries/ upstairs?",
+                opts: [
+                    { t: "A. Do you mind to help me carry these groceries upstairs?", c: false },
+                    { t: "B. Are you mind helping me carry these groceries upstairs?", c: false },
+                    { t: "C. Do you mind helping me to carrying these groceries upstairs?", c: false },
+                    { t: "D. Do you mind helping me carry these groceries upstairs?", c: true }
+                ],
+                exp1: "Bạn có phiền giúp tôi mang những thực phẩm này lên lầu không?",
+                exp2: "D. Bạn có phiền giúp tôi... (Đúng). A, B, C sai ngữ pháp.",
+                exp3: "D đúng: Câu hỏi với động từ thường mượn trợ động từ 'Do you mind'. Cấu trúc 'mind + V-ing' -> helping. Cấu trúc 'help + O + V(bare)' -> help me carry.",
+                exp4: "A sai vì dùng 'to help'. B sai vì dùng tobe 'Are'. C sai cấu trúc 'to carrying'."
+            },
+            {
+                q: "11. Thuy/ need/ finish/ her project/ before/ deadline.",
+                opts: [
+                    { t: "A. Thuy needs to finish her project before the deadline.", c: true },
+                    { t: "B. Thuy need to finish her project before the deadline.", c: false },
+                    { t: "C. Thuy needs finishing her project before the deadline.", c: false },
+                    { t: "D. Thuy needs to finish her project before deadline.", c: false }
+                ],
+                exp1: "Thủy cần hoàn thành dự án của cô ấy trước thời hạn.",
+                exp2: "A. Thủy cần hoàn thành... (Đúng). B, C, D sai ngữ pháp hoặc thiếu mạo từ.",
+                exp3: "A đúng: Chủ ngữ 'Thuy' (ngôi thứ 3 số ít) -> needs. Cấu trúc 'need + to V' (người cần làm gì). Có mạo từ 'the deadline'.",
+                exp4: "B chia sai 'need' (thiếu s). C dùng sai 'finishing'. D thiếu mạo từ 'the' trước deadline."
+            },
+            {
+                q: "12. My sister/ fancy/ listen/ classical music/ while/ studying.",
+                opts: [
+                    { t: "A. My sister fancies to listen to classical music while studying.", c: false },
+                    { t: "B. My sister fancies listening to classical music while studying.", c: true },
+                    { t: "C. My sister fancies listening classical music while studying.", c: false },
+                    { t: "D. My sister fancy listening to classical music while studying.", c: false }
+                ],
+                exp1: "Chị gái tôi thích nghe nhạc cổ điển trong khi học bài.",
+                exp2: "B. Chị tôi thích nghe nhạc cổ điển... (Đúng). A, C, D sai cấu trúc.",
+                exp3: "B đúng: Cấu trúc 'fancy + V-ing' (thích làm gì). Động từ listen đi kèm giới từ 'to' -> listening to.",
+                exp4: "A sai vì dùng 'to listen'. C thiếu giới từ 'to' sau listening. D chưa chia động từ 'fancies'."
+            },
+            
+            // EXERCISE 2: REWRITE SENTENCES
+            {
+                section: "Exercise 2: Rewrite the following sentences.",
+                q: "1. Expensive restaurants are out of my price range. -> I can't afford...",
+                opts: [
+                    { t: "A. I can't afford to eat in expensive restaurants.", c: true },
+                    { t: "B. I can't afford eating in expensive restaurants.", c: false },
+                    { t: "C. I can't afford eat in expensive restaurants.", c: false },
+                    { t: "D. I can't afford to eating in expensive restaurants.", c: false }
+                ],
+                exp1: "Nhà hàng đắt tiền nằm ngoài khả năng chi trả của tôi.",
+                exp2: "A. Tôi không đủ tiền ăn ở nhà hàng đắt. B, C, D sai cấu trúc afford.",
+                exp3: "A đúng: Cấu trúc 'can't afford + to V' (không có đủ khả năng tài chính để làm gì).",
+                exp4: "B dùng V-ing (eating). C dùng V-bare (eat). D dùng to + V-ing (to eating) đều sai ngữ pháp."
+            },
+            {
+                q: "2. You could share my pizza if you like. -> I don't mind...",
+                opts: [
+                    { t: "A. I don't mind you to share my pizza.", c: false },
+                    { t: "B. I don't mind your share my pizza.", c: false },
+                    { t: "C. I don't mind you sharing my pizza.", c: true },
+                    { t: "D. I don't mind that you sharing my pizza.", c: false }
+                ],
+                exp1: "Bạn có thể ăn chung pizza của tôi nếu bạn thích.",
+                exp2: "C. Tôi không phiền việc bạn ăn chung pizza (Đúng). A, B, D sai ngữ pháp.",
+                exp3: "C đúng: Cấu trúc 'mind + Object + V-ing' (không phiền ai đó làm gì). Ở đây là 'you sharing'.",
+                exp4: "A sai vì dùng 'to share'. B dùng 'your share' (danh từ) không hợp cấu trúc. D thừa chữ 'that'."
+            },
+            {
+                q: "3. I look forward to having lunch with you again. -> I hope...",
+                opts: [
+                    { t: "A. I hope having lunch with you some time.", c: false },
+                    { t: "B. I hope to having lunch with you some time.", c: false },
+                    { t: "C. I hope to have lunch with you some time.", c: true },
+                    { t: "D. I hope have lunch with you some time.", c: false }
+                ],
+                exp1: "Tôi mong chờ được ăn trưa cùng bạn lần nữa.",
+                exp2: "C. Tôi hi vọng được ăn trưa cùng bạn lúc nào đó (Đúng). A, B, D sai cấu trúc hope.",
+                exp3: "C đúng: Cấu trúc 'hope + to V' (hi vọng làm gì). Do đó đổi từ 'having' thành 'to have'.",
+                exp4: "A dùng V-ing. B dùng to + V-ing. D thiếu chữ 'to'."
+            },
+            {
+                q: "4. They argued about drugs all morning. -> They spent...",
+                opts: [
+                    { t: "A. They spent all morning to argue about drugs.", c: false },
+                    { t: "B. They spent all morning arguing about drugs.", c: true },
+                    { t: "C. They spent all morning argue about drugs.", c: false },
+                    { t: "D. They spent all morning for arguing about drugs.", c: false }
+                ],
+                exp1: "Họ cãi nhau về ma túy cả buổi sáng.",
+                exp2: "B. Họ dành cả buổi sáng để cãi nhau về ma túy (Đúng). A, C, D sai cấu trúc spend.",
+                exp3: "B đúng: Cấu trúc 'spend time + V-ing' (dành thời gian làm gì). Đổi 'argued' thành 'arguing'.",
+                exp4: "A dùng 'to argue'. C dùng 'argue'. D thừa giới từ 'for'."
+            },
+            {
+                q: "5. He said, ''I'll complete the assigned work on time tonight.\" -> He promised...",
+                opts: [
+                    { t: "A. He promised completing the assigned work on time tonight.", c: false },
+                    { t: "B. He promised to complete the assigned work on time tonight.", c: false },
+                    { t: "C. He promised to complete the assigned work on time that night.", c: true },
+                    { t: "D. He promised completed the assigned work on time that night.", c: false }
+                ],
+                exp1: "Anh ấy nói: 'Tôi sẽ hoàn thành công việc đúng hạn tối nay'.",
+                exp2: "C. Anh ấy hứa sẽ hoàn thành công việc đúng hạn tối đó (Đúng). A, B, D sai cấu trúc hoặc quên lùi thì.",
+                exp3: "C đúng: Cấu trúc 'promise + to V'. Trong câu gián tiếp, trạng từ 'tonight' bắt buộc chuyển thành 'that night'.",
+                exp4: "A sai vì dùng V-ing. B quên đổi 'tonight' thành 'that night'. D dùng V-ed (completed) sai cấu trúc."
+            },
+            {
+                q: "6. Miss Hoa said, \"I used to play hide-and-seek a lot during my childhood.\" -> Miss Hoa remembered...",
+                opts: [
+                    { t: "A. Miss Hoa remembered to play hide-and-seek a lot during her childhood.", c: false },
+                    { t: "B. Miss Hoa remembered playing hide-and-seek a lot during her childhood.", c: true },
+                    { t: "C. Miss Hoa remembered playing hide-and-seek a lot during my childhood.", c: false },
+                    { t: "D. Miss Hoa remembered to playing hide-and-seek a lot during her childhood.", c: false }
+                ],
+                exp1: "Cô Hoa nói: 'Tôi từng chơi trốn tìm rất nhiều thời thơ ấu'.",
+                exp2: "B. Cô Hoa nhớ lại việc chơi trốn tìm rất nhiều thời thơ ấu của cô ấy (Đúng). A, C, D sai.",
+                exp3: "B đúng: Cấu trúc 'remember + V-ing' (nhớ lại việc đã làm trong quá khứ). Đại từ sở hữu 'my' phải đổi thành 'her'.",
+                exp4: "A dùng 'to play' (nhớ phải làm việc chưa làm). C chưa đổi 'my' thành 'her'. D sai 'to playing'."
+            },
+            {
+                q: "7. Mark finally succeeded in persuading his parents to accept his career choice. -> Mark managed...",
+                opts: [
+                    { t: "A. Mark managed in persuading his parents to accept his career choice.", c: false },
+                    { t: "B. Mark managed persuading his parents to accept his career choice.", c: false },
+                    { t: "C. Mark managed to persuade his parents to accept his career choice.", c: true },
+                    { t: "D. Mark managed to persuading his parents to accept his career choice.", c: false }
+                ],
+                exp1: "Mark cuối cùng đã thành công trong việc thuyết phục bố mẹ chấp nhận lựa chọn nghề nghiệp.",
+                exp2: "C. Mark đã xoay xở thuyết phục bố mẹ... (Đúng). A, B, D sai ngữ pháp với manage.",
+                exp3: "C đúng: Cấu trúc 'manage + to V' (xoay xở, thành công làm gì), tương đương với 'succeed in + V-ing'.",
+                exp4: "A thừa giới từ 'in' và dùng V-ing. B dùng V-ing. D dùng 'to persuading'."
+            },
+            {
+                q: "8. The man said, \"I don't take the money that is left behind from the previous customer.\" -> The man denied...",
+                opts: [
+                    { t: "A. The man denied not taking the money that was left behind from the previous customer.", c: false },
+                    { t: "B. The man denied taking the money that was left behind from the previous customer.", c: true },
+                    { t: "C. The man denied taking the money that is left behind from the previous customer.", c: false },
+                    { t: "D. The man denied to take the money that was left behind from the previous customer.", c: false }
+                ],
+                exp1: "Người đàn ông nói: 'Tôi không lấy tiền của khách hàng trước để lại'.",
+                exp2: "B. Người đàn ông phủ nhận việc lấy số tiền bị khách hàng trước để lại (Đúng).",
+                exp3: "B đúng: 'deny + V-ing' (phủ nhận đã làm gì). Câu trực tiếp có 'is left' phải lùi thì thành 'was left' trong câu gián tiếp.",
+                exp4: "A sai vì có 'not' (deny đã mang nghĩa phủ định). C chưa lùi thì 'is' -> 'was'. D dùng 'to take'."
+            },
+            {
+                q: "9. Mary said, \"I can help you write a professional curriculum vitae and a formal letter of application.\" -> Mary offered...",
+                opts: [
+                    { t: "A. Mary offered to help me write a professional curriculum vitae and a formal letter of application.", c: true },
+                    { t: "B. Mary offered helping me write a professional curriculum vitae and a formal letter of application.", c: false },
+                    { t: "C. Mary offered me to help write a professional curriculum vitae and a formal letter of application.", c: false },
+                    { t: "D. Mary offered to helping me write a professional curriculum vitae and a formal letter of application.", c: false }
+                ],
+                exp1: "Mary nói: 'Tôi có thể giúp bạn viết CV chuyên nghiệp...'.",
+                exp2: "A. Mary đề nghị giúp tôi viết CV... (Đúng). B, C, D sai ngữ pháp offer.",
+                exp3: "A đúng: Cấu trúc 'offer + to V' (đề nghị làm gì cho ai).",
+                exp4: "B dùng V-ing (helping). C đảo vị trí tân ngữ sai cách. D dùng 'to helping'."
+            },
+            {
+                q: "10. Joe said, 'Tm afraid I've missed the best chance to get a promotion to the manager position.\" -> Joe admitted...",
+                opts: [
+                    { t: "A. Joe admitted to miss the best chance to get a promotion to the manager position.", c: false },
+                    { t: "B. Joe admitted missing the best chance to get a promotion to the manager position.", c: true },
+                    { t: "C. Joe admitted of missing the best chance to get a promotion to the manager position.", c: false },
+                    { t: "D. Joe admitted having miss the best chance to get a promotion to the manager position.", c: false }
+                ],
+                exp1: "Joe nói: 'Tôi e là tôi đã bỏ lỡ cơ hội tốt nhất để thăng chức'.",
+                exp2: "B. Joe thừa nhận việc bỏ lỡ cơ hội tốt nhất... (Đúng). A, C, D sai cấu trúc admit.",
+                exp3: "B đúng: Cấu trúc 'admit + V-ing' (thừa nhận đã làm gì).",
+                exp4: "A dùng 'to miss'. C thừa giới từ 'of'. D sai ngữ pháp 'having miss' (đúng phải là having missed)."
+            },
+            {
+                q: "11. Lisa's hobbies are dancing and singing along to her favourite songs. -> Lisa enjoys...",
+                opts: [
+                    { t: "A. Lisa enjoys to dance and sing along to her favourite songs.", c: false },
+                    { t: "B. Lisa enjoys dancing and singing along to her favourite songs.", c: true },
+                    { t: "C. Lisa enjoys dance and sing along to her favourite songs.", c: false },
+                    { t: "D. Lisa enjoys to dancing and singing along to her favourite songs.", c: false }
+                ],
+                exp1: "Sở thích của Lisa là nhảy múa và hát theo bài hát yêu thích.",
+                exp2: "B. Lisa thích nhảy múa và hát theo... (Đúng). A, C, D sai cấu trúc enjoy.",
+                exp3: "B đúng: Cấu trúc 'enjoy + V-ing' (thích làm gì). Các động từ đều phải ở dạng V-ing: dancing and singing.",
+                exp4: "A dùng to-V. C dùng V-bare. D dùng to + V-ing."
+            },
+            {
+                q: "12. We should not waste water because it is a precious resource. -> We should avoid...",
+                opts: [
+                    { t: "A. We should avoid not wasting water because it is a precious resource.", c: false },
+                    { t: "B. We should avoid to waste water because it is a precious resource.", c: false },
+                    { t: "C. We should avoid wasting water because it is a precious resource.", c: true },
+                    { t: "D. We should avoid waste water because it is a precious resource.", c: false }
+                ],
+                exp1: "Chúng ta không nên lãng phí nước vì nó là nguồn tài nguyên quý.",
+                exp2: "C. Chúng ta nên tránh lãng phí nước... (Đúng). A, B, D sai cấu trúc hoặc ý nghĩa.",
+                exp3: "C đúng: Cấu trúc 'avoid + V-ing' (tránh làm gì). Tránh lãng phí = không nên lãng phí.",
+                exp4: "A sai vì thừa 'not' (nghĩa là 'tránh việc không lãng phí' = nên lãng phí). B dùng 'to waste'. D dùng 'waste' (V-bare)."
+            },
+            {
+                q: "13. I would like to be a chef and cook delicious meals for people to enjoy. -> I want...",
+                opts: [
+                    { t: "A. I want being a chef and cook delicious meals for people to enjoy.", c: false },
+                    { t: "B. I want to be a chef and cook delicious meals for people to enjoy.", c: true },
+                    { t: "C. I want be a chef and cook delicious meals for people to enjoy.", c: false },
+                    { t: "D. I want to being a chef and cook delicious meals for people to enjoy.", c: false }
+                ],
+                exp1: "Tôi muốn trở thành đầu bếp và nấu ăn ngon.",
+                exp2: "B. Tôi muốn trở thành đầu bếp... (Đúng). A, C, D sai cấu trúc want.",
+                exp3: "B đúng: 'would like to V' = 'want to V' (muốn làm gì).",
+                exp4: "A dùng V-ing. C thiếu 'to'. D dùng 'to being'."
+            },
+            {
+                q: "14. My friends recommend watching the documentary about climate change. -> My friends suggest...",
+                opts: [
+                    { t: "A. My friends suggest to watch the documentary about climate change.", c: false },
+                    { t: "B. My friends suggest watching the documentary about climate change.", c: true },
+                    { t: "C. My friends suggest watch the documentary about climate change.", c: false },
+                    { t: "D. My friends suggest us to watch the documentary about climate change.", c: false }
+                ],
+                exp1: "Bạn tôi khuyên nên xem phim tài liệu về biến đổi khí hậu.",
+                exp2: "B. Bạn tôi gợi ý việc xem phim tài liệu... (Đúng). A, C, D sai cấu trúc suggest.",
+                exp3: "B đúng: 'recommend + V-ing' = 'suggest + V-ing' (gợi ý/khuyên làm gì).",
+                exp4: "A dùng 'to watch'. C dùng V-bare. D sai cấu trúc (suggest không đi với Object + to V)."
+            },
+            {
+                q: "15. Kevin makes a promise that he won't go to work late again. -> Kevin promises...",
+                opts: [
+                    { t: "A. Kevin promises not going to work late again.", c: false },
+                    { t: "B. Kevin promises to not go to work late again.", c: false },
+                    { t: "C. Kevin promises don't go to work late again.", c: false },
+                    { t: "D. Kevin promises not to go to work late again.", c: true }
+                ],
+                exp1: "Kevin hứa rằng anh ấy sẽ không đi làm muộn nữa.",
+                exp2: "D. Kevin hứa sẽ không đi làm muộn nữa (Đúng). A, B, C sai ngữ pháp.",
+                exp3: "D đúng: Cấu trúc phủ định của promise là 'promise + NOT + to V' (hứa không làm gì).",
+                exp4: "A dùng V-ing. B đặt sai vị trí chữ 'not' (phải là not to go). C dùng trợ động từ don't sai cấu trúc."
+            },
+            {
+                q: "16. We made a plan. The plan is about organising a beach cleanup event next Saturday. -> We planned...",
+                opts: [
+                    { t: "A. We planned to organise a beach cleanup event next Saturday.", c: true },
+                    { t: "B. We planned organising a beach cleanup event next Saturday.", c: false },
+                    { t: "C. We planned to organising a beach cleanup event next Saturday.", c: false },
+                    { t: "D. We planned for organise a beach cleanup event next Saturday.", c: false }
+                ],
+                exp1: "Chúng tôi đã lên kế hoạch dọn dẹp bãi biển vào thứ 7 tới.",
+                exp2: "A. Chúng tôi đã lên kế hoạch tổ chức... (Đúng). B, C, D sai cấu trúc plan.",
+                exp3: "A đúng: Cấu trúc động từ 'plan + to V' (lên kế hoạch làm gì).",
+                exp4: "B dùng V-ing. C dùng to + V-ing. D dùng giới từ for + V-bare sai."
+            },
+            {
+                q: "17. Harry is interested in studying marine biology and protecting the ocean. -> Harry fancies...",
+                opts: [
+                    { t: "A. Harry fancies to study marine biology and protect the ocean.", c: false },
+                    { t: "B. Harry fancies studying marine biology and protecting the ocean.", c: true },
+                    { t: "C. Harry fancies study marine biology and protect the ocean.", c: false },
+                    { t: "D. Harry fancies to studying marine biology and protecting the ocean.", c: false }
+                ],
+                exp1: "Harry quan tâm đến việc học sinh học đại dương và bảo vệ đại dương.",
+                exp2: "B. Harry thích việc học sinh học đại dương... (Đúng). A, C, D sai cấu trúc fancy.",
+                exp3: "B đúng: 'be interested in + V-ing' = 'fancy + V-ing' (yêu thích làm gì).",
+                exp4: "A dùng to-V. C dùng V-bare. D dùng to + V-ing."
+            },
+            {
+                q: "18. My uncle makes a decision to start a new business with his friends. -> My uncle decides...",
+                opts: [
+                    { t: "A. My uncle decides starting a new business with his friends.", c: false },
+                    { t: "B. My uncle decides start a new business with his friends.", c: false },
+                    { t: "C. My uncle decides to start a new business with his friends.", c: true },
+                    { t: "D. My uncle decides to starting a new business with his friends.", c: false }
+                ],
+                exp1: "Chú tôi đưa ra quyết định bắt đầu kinh doanh mới với bạn bè.",
+                exp2: "C. Chú tôi quyết định bắt đầu việc kinh doanh... (Đúng). A, B, D sai cấu trúc decide.",
+                exp3: "C đúng: 'make a decision to V' = 'decide + to V' (quyết định làm gì).",
+                exp4: "A dùng V-ing. B dùng V-bare. D dùng to + V-ing."
+            },
+
+            // EXERCISE 3: CLOSEST IN MEANING
+            {
+                section: "Exercise 3: Choose the sentence closest in meaning.",
+                q: "1. Most people start recalling their youthhood when they get old.",
+                opts: [
+                    { t: "A. Memories of their youthhood are important for people when they get old.", c: false },
+                    { t: "B. Most people start thinking about their youthhood when they get old.", c: true },
+                    { t: "C. Their youthhood is the only thing people think about when they get old.", c: false },
+                    { t: "D. Most old people value their youthhood.", c: false }
+                ],
+                exp1: "Hầu hết mọi người bắt đầu nhớ lại thời tuổi trẻ của họ khi họ già đi.",
+                exp2: "A. Ký ức thời trẻ rất quan trọng...; B. Hầu hết bắt đầu nghĩ về thời tuổi trẻ... (Đúng); C. Thời tuổi trẻ là thứ duy nhất họ nghĩ tới...; D. Hầu hết người già trân trọng thời tuổi trẻ.",
+                exp3: "B đúng: 'recalling' (nhớ lại, hồi tưởng) đồng nghĩa với 'thinking about' (nghĩ về).",
+                exp4: "A sai vì thêm ý 'important' (quan trọng). C sai vì có từ 'only thing' (thứ duy nhất) quá tuyệt đối. D sai vì 'value' (trân trọng) không phải là 'recall'."
+            },
+            {
+                q: "2. Life in our small village used to be very simple and peaceful.",
+                opts: [
+                    { t: "A. Life in our small village is now not as simple and peaceful as in the past.", c: true },
+                    { t: "B. Life in our small village has become very simple and peaceful.", c: false },
+                    { t: "C. Our small village has experienced simplicity and peace.", c: false },
+                    { t: "D. Life used to be different in our small village.", c: false }
+                ],
+                exp1: "Cuộc sống ở ngôi làng nhỏ của chúng tôi từng rất giản dị và yên bình.",
+                exp2: "A. Cuộc sống hiện nay không còn giản dị yên bình như trước. B. Cuộc sống đã trở nên giản dị... C. Ngôi làng đã trải qua... D. Cuộc sống từng khác biệt...",
+                exp3: "A đúng: Cấu trúc 'used to be' chỉ một trạng thái trong quá khứ nay ĐÃ THAY ĐỔI, nghĩa là hiện tại không còn như vậy nữa (not as... as in the past).",
+                exp4: "B sai thì (hiện tại hoàn thành nghĩa là bây giờ vẫn thế). C, D quá chung chung và không sát nghĩa."
+            },
+            {
+                q: "3. Nowadays, more people are moving to big cities for employment.",
+                opts: [
+                    { t: "A. Nowadays, employment is the only reason to make people move to big cities.", c: false },
+                    { t: "B. Employment is one reason to attract more people moving to big cities.", c: false },
+                    { t: "C. Nowadays, people are moving to live a better life.", c: false },
+                    { t: "D. More people are moving to big cities for higher-paid employment.", c: true }
+                ],
+                exp1: "Ngày nay, ngày càng có nhiều người chuyển đến các thành phố lớn để tìm việc làm.",
+                exp2: "A. ...là lý do duy nhất. B. ...là một lý do thu hút. C. ...để sống tốt hơn. D. Ngày càng có nhiều người chuyển đến thành phố lớn để tìm việc (phù hợp nhất trong ngữ cảnh gốc). *Ghi chú: Đề gốc D có thêm 'higher-paid', nhưng A, B, C đều sai hoàn toàn logic.",
+                exp3: "D đúng nhất theo phương pháp loại trừ. (Sát nghĩa nhất dù có thêm chi tiết higher-paid, vì A sai chữ 'only', B sai cấu trúc ngữ pháp 'attract moving', C không đề cập employment).",
+                exp4: "A có chữ 'only reason' (sai sự thật). B ngữ pháp lủng củng. C quá chung chung."
+            },
+            {
+                q: "4. I love traditional decor with classic furnishings.",
+                opts: [
+                    { t: "A. Traditionally classic furnishings fancy me a lot.", c: false },
+                    { t: "B. I love traditional decor which focuses on furnishings.", c: false },
+                    { t: "C. I love classic furnishings in traditional style.", c: false },
+                    { t: "D. Traditional décor with classic furnishings is my interest.", c: true }
+                ],
+                exp1: "Tôi yêu thích trang trí truyền thống với đồ nội thất cổ điển.",
+                exp2: "A. Đồ nội thất... làm tôi thích. B. Tôi thích trang trí truyền thống cái mà tập trung vào nội thất. C. Tôi thích nội thất cổ điển theo phong cách truyền thống. D. Trang trí truyền thống với nội thất cổ điển là sở thích của tôi.",
+                exp3: "D đúng: 'love' = 'is my interest' (là sở thích của tôi). Cấu trúc danh từ hoàn toàn khớp với câu gốc.",
+                exp4: "A sai vì trạng từ 'Traditionally' đi kèm sai cách. B tự thêm 'focuses on'. C đảo vị trí ý chính."
+            },
+            {
+                q: "5. The average age for getting married in Viet Nam has increased in recent years.",
+                opts: [
+                    { t: "A. The age for getting married in Viet Nam has changed in recent years.", c: false },
+                    { t: "B. People in Viet Nam now get married at an earlier age than in the past.", c: false },
+                    { t: "C. The average age for Vietnamese people to get married has increased in recent years.", c: true },
+                    { t: "D. In recent years, Viet Nam has increased in aged marriages.", c: false }
+                ],
+                exp1: "Độ tuổi kết hôn trung bình ở Việt Nam đã tăng lên trong những năm gần đây.",
+                exp2: "A. ...đã thay đổi... B. Người dân kết hôn sớm hơn... C. Độ tuổi kết hôn trung bình của người VN đã tăng... D. VN đã tăng các cuộc hôn nhân cao tuổi.",
+                exp3: "C đúng: Viết lại sát nghĩa hoàn toàn 100%, chỉ đổi 'in Viet Nam' thành 'for Vietnamese people'.",
+                exp4: "A từ 'changed' chưa đủ nghĩa (tăng hay giảm?). B ngược nghĩa (earlier = sớm hơn). D sai cấu trúc nghĩa hoàn toàn."
+            },
+            {
+                q: "6. Learning English has become increasingly important for career opportunities in Vietnam.",
+                opts: [
+                    { t: "A. Many Vietnamese people learned English in the past.", c: false },
+                    { t: "B. Most Vietnamese jobs don't require English skills.", c: false },
+                    { t: "C. English is not a useful language to learn in Vietnam.", c: false },
+                    { t: "D. Knowing English can open doors to better jobs in Vietnam.", c: true }
+                ],
+                exp1: "Việc học tiếng Anh ngày càng trở nên quan trọng đối với các cơ hội nghề nghiệp tại Việt Nam.",
+                exp2: "A. Nhiều người từng học TA trong quá khứ. B. Hầu hết công việc không cần TA. C. TA không phải là ngôn ngữ hữu ích. D. Biết tiếng Anh có thể mở ra cánh cửa cho những công việc tốt hơn.",
+                exp3: "D đúng: 'career opportunities' (cơ hội nghề nghiệp) được diễn đạt lại bằng 'open doors to better jobs' (mở cánh cửa công việc tốt hơn).",
+                exp4: "A không liên quan. B và C ngược nghĩa hoàn toàn."
+            },
+            {
+                q: "7. Street food is incredibly popular in Vietnam.",
+                opts: [
+                    { t: "A. Vietnamese people enjoy street food very much.", c: true },
+                    { t: "B. Street food is not popular in Vietnam.", c: false },
+                    { t: "C. People rarely eat street food in Vietnam.", c: false },
+                    { t: "D. Very popular street food is found in Vietnam.", c: false }
+                ],
+                exp1: "Thức ăn đường phố cực kỳ phổ biến ở Việt Nam.",
+                exp2: "A. Người Việt Nam rất thích thức ăn đường phố. B. ...không phổ biến. C. ...hiếm khi ăn. D. Thức ăn đường phố rất phổ biến được tìm thấy ở VN.",
+                exp3: "A đúng: Sự phổ biến của thức ăn đường phố xuất phát từ việc người dân rất thích và tiêu thụ nó nhiều ('enjoy very much').",
+                exp4: "B và C ngược nghĩa. D sắp xếp từ sai cấu trúc ngữ nghĩa."
+            },
+            {
+                q: "8. Many families in Vietnam prioritize spending time together.",
+                opts: [
+                    { t: "A. Spending time together is not important for Vietnamese families.", c: false },
+                    { t: "B. Vietnamese families don’t have much time to spend together.", c: false },
+                    { t: "C. It is a priority for Vietnamese families to spend time together.", c: true },
+                    { t: "D. Spending time together is a recent trend in Vietnamese families.", c: false }
+                ],
+                exp1: "Nhiều gia đình ở Việt Nam ưu tiên việc dành thời gian cho nhau.",
+                exp2: "A. ...không quan trọng. B. ...không có nhiều thời gian. C. Việc dành thời gian cho nhau là một ưu tiên của gia đình VN. D. ...là một xu hướng gần đây.",
+                exp3: "C đúng: Chuyển động từ 'prioritize' thành danh từ 'is a priority' (là một sự ưu tiên).",
+                exp4: "A, B ngược nghĩa. D tự thêm ý 'recent trend' (xu hướng gần đây)."
+            },
+            {
+                q: "9. Coffee shops are a popular hangout spot for young people in Vietnam.",
+                opts: [
+                    { t: "A. Young people rarely visit coffee shops in Vietnam.", c: false },
+                    { t: "B. Coffee shops are a boring place for young people.", c: false },
+                    { t: "C. Young Vietnamese enjoy spending time in coffee shops.", c: true },
+                    { t: "D. Coffee is the most popular drink among young people.", c: false }
+                ],
+                exp1: "Quán cà phê là địa điểm tụ tập phổ biến của giới trẻ Việt Nam.",
+                exp2: "A. Giới trẻ hiếm khi đi cà phê. B. Cà phê là nơi nhàm chán. C. Giới trẻ VN thích dành thời gian ở quán cà phê. D. Cà phê là thức uống phổ biến nhất.",
+                exp3: "C đúng: 'hangout spot' (nơi tụ tập vui chơi) đồng nghĩa với việc 'enjoy spending time' (thích dành thời gian ở đó).",
+                exp4: "A và B ngược nghĩa. D đánh tráo khái niệm (thức uống thay vì địa điểm)."
+            },
+            {
+                q: "10. Due to the rise of online shopping, fewer people visit traditional markets.",
+                opts: [
+                    { t: "A. Traditional markets are becoming more popular.", c: false },
+                    { t: "B. Online shopping has made traditional markets less crowded.", c: true },
+                    { t: "C. Traditional markets only sell products not available online.", c: false },
+                    { t: "D. Most Vietnamese people prefer online shopping to traditional markets.", c: false }
+                ],
+                exp1: "Do sự trỗi dậy của mua sắm trực tuyến, ngày càng ít người đi chợ truyền thống hơn.",
+                exp2: "A. Chợ truyền thống phổ biến hơn. B. Mua sắm online làm chợ truyền thống bớt đông đúc hơn. C. Chợ chỉ bán đồ không có trên mạng. D. Hầu hết người VN thích mua sắm online hơn.",
+                exp3: "B đúng: 'fewer people visit' (ít người ghé thăm) = 'less crowded' (bớt đông đúc).",
+                exp4: "A ngược nghĩa. C bịa thêm thông tin. D phóng đại từ 'fewer' thành 'Most'."
+            },
+
+            // EXERCISE 4: PARAGRAPH ARRANGEMENT
+            {
+                section: "Exercise 4: Paragraph arrangement.",
+                q: "Sắp xếp đoạn văn 1:<br>a. In addition, cultural preservation fosters a sense of community...<br>b. In conclusion, preserving culture is essential...<br>c. It allows us to appreciate the traditions...<br>d. To begin with, preserving culture helps us connect...<br>e. It allows us to learn from each other...<br>f. Last but not least, preserving culture promotes diversity...",
+                opts: [
+                    { t: "A. d – c – a – f – e – b", c: true },
+                    { t: "B. d – b – a – f – e – c", c: false },
+                    { t: "C. d – a – b – f – e – c", c: false },
+                    { t: "D. d – a – f – c – e – b", c: false }
+                ],
+                exp1: "Sắp xếp đoạn văn về Bảo tồn văn hóa.",
+                exp2: "A. d-c-a-f-e-b (Đúng). Các phương án khác sai logic từ nối.",
+                exp3: "A đúng: 1(d) 'To begin with' (Đầu tiên). 2(c) 'It' thay thế cho cultural preservation ở câu d. 3(a) 'In addition' (Thêm vào đó). 4(f) 'Last but not least' (Cuối cùng nhưng không kém phần quan trọng). 5(e) 'It' thay thế cho ý câu f. 6(b) 'In conclusion' (Kết luận).",
+                exp4: "Không thể để 'In conclusion' (b) ở giữa đoạn. Đại từ 'It' (c, e) phải đứng ngay sau câu mà nó bổ nghĩa."
+            },
+            {
+                q: "Sắp xếp đoạn văn 2:<br>c. The lifestyle of Vietnamese people has undergone significant changes...<br>e. Firstly, the rapid urbanization...<br>a. Secondly, technological advancements...<br>b. Lastly, globalization has exposed...<br>d. In conclusion, the lifestyle of Vietnamese people has become more modern...",
+                opts: [
+                    { t: "A. c – e – a – b – d", c: true },
+                    { t: "B. c – a – e – b – d", c: false },
+                    { t: "C. e – c – a – b – d", c: false },
+                    { t: "D. c – e – b – a – d", c: false }
+                ],
+                exp1: "Sắp xếp đoạn văn về Lối sống của người Việt.",
+                exp2: "A. c-e-a-b-d (Đúng).",
+                exp3: "A đúng: Đoạn văn mẫu mực. 1(c) Câu chủ đề mở đoạn. 2(e) 'Firstly' (Thứ nhất). 3(a) 'Secondly' (Thứ hai). 4(b) 'Lastly' (Cuối cùng). 5(d) 'In conclusion' (Kết luận).",
+                exp4: "Các phương án khác đảo lộn trật tự logic đếm số (Firstly -> Secondly -> Lastly) hoặc đảo câu mở/kết."
+            },
+            {
+                q: "Sắp xếp đoạn văn 3:<br>a. First, in the past, Vietnamese people mainly relied on traditional farming tools...<br>b. But now, thanks to technological advancements...<br>c. Best regards, Thanh<br>d. Dear Hoa, I hope you're doing well! I've been thinking about farming...<br>e. It's great to see how progress is benefiting our farmers. Take care...<br>f. This change has not only made farming more efficient...",
+                opts: [
+                    { t: "A. d – a – b – f – e – c", c: true },
+                    { t: "B. d – b – a – f – e – c", c: false },
+                    { t: "C. d – c – a – f – e – b", c: false },
+                    { t: "D. d – a – f – b – e – c", c: false }
+                ],
+                exp1: "Sắp xếp bức thư gửi Hoa về nông nghiệp.",
+                exp2: "A. d-a-b-f-e-c (Đúng).",
+                exp3: "A đúng: 1(d) Lời chào mở thư 'Dear Hoa'. 2(a) Kể chuyện quá khứ 'First, in the past'. 3(b) Sự thay đổi hiện tại 'But now'. 4(f) Kết quả của sự thay đổi 'This change'. 5(e) Lời chúc 'Take care'. 6(c) Chữ ký kết thư 'Best regards'.",
+                exp4: "Không thể kể 'But now' (b) trước 'in the past' (a). Chữ ký (c) luôn phải nằm cuối cùng."
+            }
+        ];
+
+        // --- XỬ LÝ GIAO DIỆN & LOGIC TRẮC NGHIỆM ---
+        const container = document.getElementById('quiz-container');
+        let currentSection = "";
+
+        // Hàm xáo trộn mảng (Fisher-Yates)
+        function shuffleArray(array) {
+            for (let i = array.length - 1; i > 0; i--) {
+                const j = Math.floor(Math.random() * (i + 1));
+                [array[i], array[j]] = [array[j], array[i]];
+            }
+        }
+
+        quizData.forEach((item, index) => {
+            if (item.section && item.section !== currentSection) {
+                currentSection = item.section;
+                const secHTML = document.createElement('div');
+                secHTML.className = 'section-title';
+                secHTML.innerHTML = currentSection;
+                container.appendChild(secHTML);
+            }
+
+            // Xáo trộn đáp án
+            shuffleArray(item.opts);
+
+            const card = document.createElement('div');
+            card.className = 'quiz-card';
+            card.id = `question-${index}`;
+
+            let optsHTML = '';
+            item.opts.forEach(opt => {
+                optsHTML += `<button class="option-btn" data-correct="${opt.c}" onclick="checkAnswer(this, ${index})">${opt.t}</button>`;
+            });
+
+            card.innerHTML = `
+                <div class="question-text">${item.q}</div>
+                <div class="options-grid">${optsHTML}</div>
+                <div class="explanation-box" id="exp-${index}">
+                    <div class="exp-step"><b>1. Dịch câu hỏi:</b> ${item.exp1}</div>
+                    <div class="exp-step"><b>2. Phân tích 4 đáp án:</b><br>${item.exp2}</div>
+                    <div class="exp-step"><b>3. Tại sao chọn đáp án này?</b><br>${item.exp3}</div>
+                    <div class="exp-step"><b>4. Tại sao các đáp án khác sai?</b><br>${item.exp4}</div>
+                </div>
+            `;
+            container.appendChild(card);
+        });
+
+        // Hàm xử lý chọn đáp án
+        window.checkAnswer = function(btn, index) {
+            const card = document.getElementById(`question-${index}`);
+            if (card.dataset.answered) return;
+
+            const isCorrect = btn.dataset.correct === "true";
+            const allBtns = card.querySelectorAll('.option-btn');
+
+            allBtns.forEach(b => {
+                b.classList.add('disabled');
+                if (b.dataset.correct === "true") b.classList.add('correct');
+            });
+
+            if (isCorrect) {
+                playSound('correct');
+                fireConfetti();
+            } else {
+                btn.classList.add('wrong');
+                playSound('wrong');
+                card.classList.add('shake');
+                setTimeout(() => card.classList.remove('shake'), 400);
+            }
+
+            document.getElementById(`exp-${index}`).classList.add('active');
+            card.dataset.answered = "true";
+            card.dataset.score = isCorrect ? 1 : 0;
+        };
+
+        // Hàm tính điểm và hiển thị kết quả
+        window.gradeQuiz = function() {
+            let correctCount = 0;
+            let answeredCount = 0;
+            const total = quizData.length;
+
+            quizData.forEach((_, index) => {
+                const card = document.getElementById(`question-${index}`);
+                if (card.dataset.answered) {
+                    answeredCount++;
+                    if (card.dataset.score == 1) correctCount++;
+                }
+            });
+
+            document.getElementById('score-text').innerText = `${correctCount} / ${total}`;
+            
+            let percent = (correctCount / total) * 100;
+            let comment = "";
+
+            if (percent < 50) {
+                comment = "Điểm lần này chưa cao lắm, con cố gắng đọc kỹ giải thích đáp án và làm lại nha. Cô tin con sẽ làm tốt hơn ở lần sau! 💛";
+            } else if (percent <= 80) {
+                comment = "Con đã có tiến bộ khá ổn rồi, con cố gắng đọc kỹ giải thích đáp án và làm lại nha. Cô tin con sẽ làm tốt hơn ở lần sau! ⭐";
+            } else {
+                comment = "Làm tốt lắm, con cố gắng ring điểm 10 ở lần sau nha! 🏆🎉";
+            }
+
+            if (answeredCount < total) {
+                comment += `\n\n(Nhắc nhở: Con vẫn còn ${total - answeredCount} câu chưa làm đấy nhé!)`;
+            }
+
+            document.getElementById('comment-text').innerText = comment;
+            document.getElementById('result-modal').style.display = 'flex';
+
+            if (percent >= 60) {
+                fireConfetti();
+                setTimeout(fireConfetti, 500);
+            }
+        };
+
+        window.closeModal = function() {
+            document.getElementById('result-modal').style.display = 'none';
+        };
+
+        // --- HIỆU ỨNG PHÁO GIẤY CONFETTI ---
+        const canvas = document.getElementById('confetti-canvas');
+        const ctx = canvas.getContext('2d');
+        let confettis = [];
+
+        function resizeCanvas() {
+            canvas.width = window.innerWidth;
+            canvas.height = window.innerHeight;
+        }
+        window.addEventListener('resize', resizeCanvas);
+        resizeCanvas();
+
+        function fireConfetti() {
+            for (let i = 0; i < 60; i++) {
+                confettis.push({
+                    x: Math.random() * canvas.width,
+                    y: -20,
+                    r: Math.random() * 6 + 4,
+                    dx: Math.random() * 4 - 2,
+                    dy: Math.random() * 5 + 2,
+                    color: `hsl(${Math.random() * 360}, 100%, 60%)`,
+                    tilt: Math.random() * 10,
+                    tiltAngle: 0,
+                    tiltAngleInc: (Math.random() * 0.07) + 0.05
+                });
+            }
+        }
+
+        function drawConfetti() {
+            ctx.clearRect(0, 0, canvas.width, canvas.height);
+            confettis.forEach((c, index) => {
+                c.tiltAngle += c.tiltAngleInc;
+                c.y += c.dy;
+                c.x += Math.sin(c.tiltAngle) * 2;
+                c.tilt = Math.sin(c.tiltAngle) * 15;
+
+                if (c.y > canvas.height) {
+                    confettis.splice(index, 1);
+                    return;
+                }
+
+                ctx.beginPath();
+                ctx.lineWidth = c.r;
+                ctx.strokeStyle = c.color;
+                ctx.moveTo(c.x + c.tilt + c.r, c.y);
+                ctx.lineTo(c.x + c.tilt, c.y + c.tilt + c.r);
+                ctx.stroke();
+            });
+            requestAnimationFrame(drawConfetti);
+        }
+        drawConfetti();
+    </script>
+</body>
+</html>
